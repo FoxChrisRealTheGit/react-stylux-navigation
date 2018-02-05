@@ -1,7 +1,7 @@
 {
-  "name": "react-stylux-layout",
-  "version": "0.2.0",
-  "description": "The layout mechanic of react-stylux",
+  "name": "react-stylux-navigation",
+  "version": "0.2.1",
+  "description": "The visual navigation mechanic of react-stylux",
   "main": "index.js",
   "scripts": {
     "build": "babel lib -d ./",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/FoxChrisRealTheGit/react-stylux-layout"
+    "url": "https://github.com/FoxChrisRealTheGit/react-stylux-navigation"
   },
   "author": "FoxChrisRealThe (http://foxchrisrealthe.com)",
   "license": "MIT",

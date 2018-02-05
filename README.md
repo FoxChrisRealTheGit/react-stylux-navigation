@@ -1,8 +1,10 @@
 # react-stylux
 
-This is currently a very alpha stage project, documentation will be lack luster for a few weeks. Please stand by while testing occurs. It should also be noted that no items are responsive, and are only psuedo responsive to the extent that flex-wrap is responsive. 
 
-Utilizing three simple component types, this project simplifies layout and front-end considerations for react projects. The three component types are: containers (subject to change), holders, and blocks. Containers (subject to change) define the horizonal space and act as a wrapper for all blocks. Holders then go inside of the container to define the space for the blocks. Holders can go inside of Holders to further define space. Each holder has a pre determinded child length and will render children placed into the holder.
+**This project is part of the larger react-stylux library.**
+**Brand Blocks currently disabled**
+
+This is currently a very alpha stage project, documentation will be lack luster for a few weeks. Please stand by while testing occurs. Responsive implementation is in its infancy and will continue to improve. There are currently three sizes, please see Responsive notes for more information.
 
 ## Getting Started
 
@@ -11,16 +13,30 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 ```
-npm install --save react-stylux
+npm install --save react-stylux-navigation
 ```
 
 ## How To Use Stylux
+### Table of Contents
+- [What's included](#whats-included-in-the-navigation-varsion-of-react-stylux-is)
+- [Step by Step](#step-by-step)
+- [Animation Notes](#animation-notes)
+- [Responsive Notes](#responsive-notes)
+- [Navigation](#navigation-specific)
+    - [Navbars](#navbars)
+    - [SubNavbars](#subnavbars)
+    - [Dropdowns](#dropdownnavs-there-needs-to-be-an-accesibility-rework)
+    - [Brand](#brand)
+- [Feature Wish List](#feature-wish-list)
+- [Acknowledgments](#acknowledgments)
+- [Changelog](#changelog)
 
-### Included in the base version of react-stylux is:
+
+### Included in the navigation version of react-stylux is:
 * Navbar 1
 * SubNavbar 1-5
 * Dropdowns 1-5
-* Brand 1-5
+* Brand 1-5 (disabled)
 
 #### Currently not done:
 * Dropdown Nav 2
@@ -82,6 +98,78 @@ props can be passed into every item to further create a custom expierence:
 </Container1>
 ```
 This is just a basic example of what can be done with stylux. Basic documentation on the current blocks can be seen below, a more comprehensive website is currently being worked on.
+### Animation Notes:
+
+**The animation library is currently mostly from: animate.css, please see [Acknowledgments](#acknowledgments) for full acknowledgment.**
+
+#### defaults
+
+all blocks have access to:
+- animationIterationCount in the form of: props.aniCount,
+- animationTimingFunction in the form of: props.aniTime,
+- animationName in the form of: props.aniName,
+- animationDuration in the form of: props.aniDur,
+- transformOrigin in the form of: props.transformOrigin,
+
+animate.css recommends the following defaults:
+aniDur ='1s'
+aniFillMode = 'both'
+
+if wanting an infinite animation:
+aniCount = 'infinite'
+
+
+#### Animation Names
+
+to see what these do, please refer to animation [Acknowledgments](#acknowledgments) or go to http://daneden.me/animate
+each animation will be associated with suggested defaults, these will be improved as more testing is accomplished.
+
+- bounce
+    - transform-origin: center bottom
+- pulse
+- handShake
+    - animation-timing-function: ease-in-out
+- jello
+    - transform-origin: center
+- bounceIn
+    - animation-duration: 0.75s
+- bounceInDown
+- bounceInLeft
+- bounceInRight
+- bounceInUp
+- bounceOut
+- bounceOutLeft
+- bounceOutRight
+- bounceOutUp
+- fadeIn
+- fadeOut
+- flipInX (needs better integration)
+- flipInY (needs better integration)
+- flipOutX (needs better integration)
+- flipOutY (needs better integration)
+- hinge
+    - animation-duration: 2s
+- slideInLeft
+- slideInRight
+- slideOutLeft
+- slideOutRight
+
+### Responsive Notes:
+There are two breakpoints on the follow elements:
+* containers
+* holders
+* headings
+* paragraphs
+* images
+
+#### Small Breakpoint:
+use this through props as: smdis
+the breakpoint for this is currently set at max-width: 440px (subject to change)
+
+#### Medium Breakpoint:
+use this through props as: mddis
+the breakpoint for this is currently set at min-width: 441px and max-width: 760px (subject to change)
+
 
 ## Documentation:
 
@@ -89,7 +177,7 @@ Each element will be shown with an example of the possible props equal to the de
 Each elements will then be shown is an example of children accepted.
 
 
-### Navigation Specific
+#### Navigation Specific
 
 #### Navbars
 
@@ -113,15 +201,32 @@ Each elements will then be shown is an example of children accepted.
     fontSize = 1em
     fontWeight = '100'
     fontVariant = 'none'
+    count = '0'
+    smDis = 'flex' (if no count set, if count > 0 then 'none')
+    mdDis = 'flex'
+    hoverColor
+    hamSmDis = 'flex' (if no count set, then 'none')
+    hamMdDis = 'none'
+    hamTop = '7%'
+    hamSmDis = 'flex'
+    hamMdDis = 'none'
+    hamShadow = '1px 2px 2px black'
+    hamBackground = 'white'
+    hamPosition = 'absolute'
     navid
     itemsid
     navClassName
     itemsClassName
     >
 ```
-This accepts unlimited? children and renders them
+This accepts unlimited? children and renders them.
+Will render anything beyond count into the ham menu.
 ```
-<Navbar1>
+<Navbar1
+    count ='3'>
+    <a href="">Home</a>
+    <a href="">About</a>
+    <a href="">Contact</a>
     <a href="">Home</a>
     <a href="">About</a>
     <a href="">Contact</a>
@@ -132,8 +237,45 @@ This accepts unlimited? children and renders them
 #### SubNavBars
 
 ##### SubNavBar1
-**will be added soon**
-
+**Still working on**
+```
+<SubNavbar2
+font = 'serif'
+    totalWidth = '100%'
+    navbarWidth = '100%'
+    height
+    display = 'flex'
+    direction = 'row'
+    align = 'center'
+    columnAlign = 'center'
+    margin = '0'
+    padding = '0'
+    itemSpacing = '10px 0'
+    mainBackground = 'black'
+    itemBackground = 'inherit'
+    color = 'whitesmoke'
+    fontSize = 0.9em
+    fontWeight = '100'
+    fontVariant = 'none'
+    navid
+    itemsid
+    navClassName
+    listClassName
+    itemsClassName
+    smDis = 'none'
+    mdDis ='flex'
+    >
+```
+This accepts unlimited? children and renders them.
+```
+<SubNavbar1
+    navbarWidth='70%'>
+    <a href=''>Item1</a>
+    <a href=''>Item2</a>
+    <a href=''>Item3</a>
+    <a href=''>Item4</a>
+</SubNavbar1>
+```
 ##### SubNavBar2
 **will be added soon**
 
@@ -149,9 +291,9 @@ This uses two mouse events and is not optimized for tablet or mobile use.
     background
     boxShadow = '1px 2px 2px black'
     borderRadius = '0 0 5px 5px'
-    offset = '-5px'
+    offset
     color = 'black'
-    textAlign = 'center'
+    textAlign = 'left'
     margin
     padding
     width
@@ -161,6 +303,8 @@ This uses two mouse events and is not optimized for tablet or mobile use.
     mainClassName
     titleClassName
     itemsClassName
+    smDis = 'flex'
+    mdDis = 'flex'
     >
 ```
 This accepts unlimited? children and renders them, the first child is the title. A downward pointing arrow is rendered after title
@@ -185,6 +329,8 @@ This uses two mouse events and is not optimized for tablet or mobile use.
 ```
 <DropDownNav5
     background
+    boxShadow = '1px 2px 2px black'
+    borderRadius = '0 5px 5px 0'
     offset
     width
     mainid
@@ -193,6 +339,8 @@ This uses two mouse events and is not optimized for tablet or mobile use.
     mainClassName
     titleClassName
     itemsClassName
+    smDis = 'flex'
+    mdDis = 'flex'
     >
 ```
 This accepts unlimited? children and renders them, the first child is the title. A sideways pointing arrow is rendered after title
@@ -207,7 +355,7 @@ This accepts unlimited? children and renders them, the first child is the title.
 
 
 #### Brand
-**Not Finished**
+**currently disabled, and not finished**
 
 ##### Brand1
 
@@ -247,22 +395,8 @@ No Contributions will be accepted outside of the project team until the project 
 ## Versioning
 for a more detailed list of changes, please refer to the changelog
 
-**0.2.0**
-* Added media queries to containers, holders, headings, and pargaraphs
-* added display ability through props
-* updated readme
-
-**0.1.0**
-* major name changes will break all prior versions, see changelog
-* Heading/Paragraph blocks have text align, height and width props available
-* css reset hooked up to every block
-
-**0.0.12**
-* documentation added to readme
-
-**0.0.10** works
-* this is the furthest back that is mostly working
-
+**0.2.1**
+* works and has media queries/ham menu on navbar1
 
 ## Authors
 
@@ -278,80 +412,10 @@ This is licensed under MIT license. If used in any project, please give ackknowl
 * A Giant Thank you to [Dev Mountain](https://devmountain.com/) for teaching me to code good
 * A big thank you to Morten Rand-Hendriksen for your videos on flex box and the code that allows the className socialness to work
 * Credit to http://meyerweb.com/eric/tools/css/reset/  for use of a reset file
-* Credit to the React-Styles team (used as nestingstyles) for the code to allow for media queries through style
+* Credit to the React-Styles team (used as nestingstyles) for the code to allow for media queries through style object
+* Massive credit for the animations to Daniel Eden - animate.css - http://daneden.me/animate
 
 
 ## Changelog
-**0.2.0**
-* fixed carousel componentWillUnmount - still needs testing, will probably still show error in console
-* added smdis && mddis to every container, holder, heading blocks, paragraph blocks, and image blocks
-* added media queries for max-width 481px and minwidth 482px max-wdith 1200px everything else should render above 1200px
-* adding in placeholder sizes until more responsive testing occurs
-* readme updated for changes
-* new animation and responsive design sections added to readme
-
-**0.1.6**
-* added lifecycle componentWillUnmount to carousels to stop interval
-* added lifecycle componentWillRecieveProps to most blocks to allow for render updates
-
-**0.1.5**
-* added Table1 and Table2
-* added animation path to blocks (feature not fully implemented)
-* added the outline for animation integration into basic blocks (feature not fully implemented)
-* moved most children to array into componentdidmount to set children on state
-* fixed navbar1 classname & id
-* lowered dropdownnav5 default text size
-* fixed horizontal ticker 1
-* readme updated for changes
-
-**0.1.4**
-
-* fixed dropdownnav1
-* added togglePlace onto toggler2, this uses flexDirection to change toggle place eg 'column-reverse' || 'row' etc...
-* changed toggler1 position to fixed from absolute, still changeable through props.
-* added modul1, popup with an x close in the upper right corner
-* navigation font sizes adjusted (needs more work)
-
-* readme updated for changes
-
-
-**0.1.3**
-
-* Fixed Holders 8-13 block 5 styles
-* got rid of a tags in Brands, will rework Brand Blocks
-* text-shadow added to headings and paragraphs
-* border, border-left, border-right, border-top, border-bottom added to headings, paragraphs, holders, and toggler 1 & 2
-* added box-shadow to dropdownnav1 and toggler1
-* border-radius, text-align, and color added to dropdownnav1
-* color also added to navbar, subnav 1 & 2
-* got rid of default yellow hover highlight will be allow for easier adjusting of this soon
-* toggler 1 now has z-index of 2000
-* color, border, weight, shadow, margin, padding, variant, and background added to the toggler 1 & 2 button
-
-* readme updated to reflect the changes
-
-**0.1.0**
-* text align added to heading and paragraph blocks
-* Width and Height now available for heading and paragraph blocks
-
-* mainHeading name changed to H1 + num
-* Heading name changed to H2 + num
-* SubHeading name changed to H3 + num
-* SecondarySubHeading name changed to H4 + num
-* Paragraph name changed to P + num
-* PullQuote name changed to PLQ + num
-
-* z Index of 1000 added to the DropDownNav1
-* z Index of 200 added to the SubNavBAr1, this fixes a stacking issue
-
-* css reset hooked up to every block
-
-* readme updated to reflect changes
-
-* fixed Holder4 block 3-5 styles
-
-**0.0.12**
-* readme was updated with minor documentation
-
-**0.0.10**
-* baselineish that things are mostly working
+**0.2.1**
+* updated to current stable version of react-stylux 0.2.9

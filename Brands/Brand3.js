@@ -36,15 +36,27 @@ var Brand3 = function (_Component) {
 
         _this.state = {
             display: props.display || 'flex',
+            size: props.size || 'sm',
             animationIterationCount: props.aniCount,
             animationTimingFunction: props.aniTime,
             animationName: props.aniName,
-            animationDuration: props.aniDur
+            animationDuration: props.aniDur,
+            transformOrigin: props.transformOrigin,
+            animationFillMode: props.aniFillMode,
+            smdis: props.smDis || 'flex',
+            mddis: props.mdDis || 'flex',
+            childs: []
         };
         return _this;
     }
 
     _createClass(Brand3, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var CHILDS = _react2.default.Children.toArray(this.props.children);
+            return this.setState({ childs: CHILDS });
+        }
+    }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(newProps) {
             var CHILDS = _react2.default.Children.toArray(newProps.children);
@@ -59,16 +71,18 @@ var Brand3 = function (_Component) {
                 animationIterationCount: this.state.animationIterationCount,
                 animationTimingFunction: this.state.animationTimingFunction,
                 animationName: this.state.animationName,
-                animationDuration: this.state.animationDuration
+                animationDuration: this.state.animationDuration,
+                transformOrigin: this.state.transformOrigin,
+                animationFillMode: this.state.animationFillMode
             };
-            var CHILDS = _react2.default.Children.toArray(this.props.children);
             return _react2.default.createElement(
                 'section',
                 { style: BRAND },
                 _react2.default.createElement(
                     _SquareImage2.default,
-                    null,
-                    CHILDS[0],
+                    {
+                        size: this.state.size },
+                    this.state.childs[0],
                     'logo'
                 )
             );

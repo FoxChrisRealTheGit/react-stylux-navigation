@@ -14,7 +14,13 @@ require('../../css/reset.css');
 
 require('../../css/SuperStyleSheet.css');
 
+var _nestingstyles = require('nestingstyles');
+
+var _nestingstyles2 = _interopRequireDefault(_nestingstyles);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -45,94 +51,345 @@ var Navbar1 = function (_Component) {
             mainBackground: props.mainBackground || 'inherit',
             itemBackground: props.itemBackground || 'inherit',
             color: props.color || 'black',
-            fontSize: props.fontSize || '1em',
+            fontSize: props.fontSize || '1.333em',
             fontWeight: props.fontWeight || '100',
             fontVariant: props.fontVariant || 'none',
             navid: props.navid,
             itemsid: props.itemsid,
             navClassName: props.navClassName,
             itemsClassName: props.itemsClassName,
-            childs: ''
+            childs: '',
+            hams: '',
+            smdis: props.smDis || 'flex',
+            mddis: props.mdDis || 'flex',
+            initialCount: props.count || '0',
+            hoverColor: props.hoverColor,
+            hamMenuDis: 'none',
+            hamShow: false,
+            hamTop: props.hamTop || '75px',
+            hamLeft: props.hamLeft || '0',
+            hamSmDis: props.hamSmDis || 'flex',
+            hamMdDis: props.hamMdDis || 'none',
+            hamShadow: props.hamShadow || '1px 2px 2px black',
+            hamBackground: props.hamBackground || 'white',
+            hamPosition: props.hamPosition || 'absolute'
         };
+        _this.toggle = _this.toggle.bind(_this);
         return _this;
     }
 
     _createClass(Navbar1, [{
+        key: 'toggle',
+        value: function toggle() {
+            this.setState({ hamShow: !this.state.hamShow });
+        }
+    }, {
         key: 'componentDidMount',
         value: function componentDidMount() {
-            var NAVBAR_NAVBAR_LI = {
-                display: 'flex',
-                flex: 1,
-                fontSize: this.state.fontSize,
-                fontWeight: this.state.fontWeight,
-                justifyContent: 'center',
-                margin: this.state.itemSpaceing,
-                background: this.state.itemBackground,
-                fontVariant: this.state.fontVariant
-            };
-            var CHILDS = _react2.default.Children.toArray(this.props.children);
-            var NAVBARACTUAL = CHILDS.map(function (x, i) {
-                return _react2.default.createElement(
-                    'li',
-                    { key: i, style: NAVBAR_NAVBAR_LI },
-                    x
-                );
+            var NAVBAR_NAVBAR_LI = _nestingstyles2.default.create({
+                navbar_navbar_li: {
+                    display: this.state.display,
+                    flex: 1,
+                    fontSize: this.state.fontSize,
+                    fontWeight: this.state.fontWeight,
+                    justifyContent: 'center',
+                    margin: this.state.itemSpaceing,
+                    background: this.state.itemBackground,
+                    fontVariant: this.state.fontVariant
+                },
+                hoverStyle: {
+                    color: this.state.hoverColor
+                },
+                '@media screen and (max-width: 440px)': {
+                    navbar_navbar_li: {
+                        display: this.state.smdis
+                    }
+                },
+                '@media screen and (min-width: 441px) and (max-width: 760px)': {
+                    navbar_navbar_li: {
+                        display: this.state.mddis
+                    }
+                }
             });
-            this.setState({ childs: NAVBARACTUAL });
+            var HAM_NAVBAR_LI = _nestingstyles2.default.create({
+                ham_navbar_li: {
+                    visibility: this.state.hamShow ? 'visible' : 'collaspe',
+                    flex: 1,
+                    fontSize: this.state.fontSize,
+                    fontWeight: this.state.fontWeight,
+                    justifyContent: 'center',
+                    margin: this.state.itemSpaceing,
+                    background: this.state.itemBackground,
+                    fontVariant: this.state.fontVariant
+                },
+                hoverStyle: {
+                    color: this.state.hoverColor
+                },
+                '@media screen and (max-width: 440px)': {
+                    ham_navbar_li: {
+                        visibility: this.state.hamShow ? 'visible' : 'collaspe'
+                    }
+                },
+                '@media screen and (min-width: 441px) and (max-width: 760px)': {
+                    ham_navbar_li: {
+                        visibility: this.state.hamShow ? 'visible' : 'collaspe'
+                    }
+                }
+            });
+            var CHILDS = _react2.default.Children.toArray(this.props.children);
+            if (+this.state.initialCount !== 0) {
+                var LGDIS = [];
+                var SMDIS = [];
+                for (var x = 0; x < +this.state.initialCount; x += 1) {
+                    LGDIS.push(CHILDS[x]);
+                }
+                for (var i = +this.state.initialCount; i < CHILDS.length; i += 1) {
+                    SMDIS.push(CHILDS[i]);
+                }
+                var NAVBARLG = LGDIS.map(function (x, i) {
+                    return _react2.default.createElement(
+                        'li',
+                        { key: i, style: NAVBAR_NAVBAR_LI.navbar_navbar_li },
+                        x
+                    );
+                });
+                var NAVBARSM = SMDIS.map(function (x, i) {
+                    return _react2.default.createElement(
+                        'li',
+                        { key: i, style: HAM_NAVBAR_LI.ham_navbar_li },
+                        x
+                    );
+                });
+
+                this.setState({ childs: NAVBARLG, hams: NAVBARSM, smdis: 'none' });
+            } else {
+                var NAVBARACTUAL = CHILDS.map(function (x, i) {
+                    return _react2.default.createElement(
+                        'li',
+                        { key: i, style: NAVBAR_NAVBAR_LI.navbar_navbar_li },
+                        x
+                    );
+                });
+                this.setState({
+                    childs: NAVBARACTUAL,
+                    hamMenuDis: 'none',
+                    hamShow: false,
+                    hamSmDis: 'none',
+                    hamMdDis: 'none'
+                });
+            }
         }
     }, {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(newProps) {
-            var NAVBAR_NAVBAR_LI = {
-                display: 'flex',
-                flex: 1,
-                fontSize: this.state.fontSize,
-                fontWeight: this.state.fontWeight,
-                justifyContent: 'center',
-                margin: this.state.itemSpaceing,
-                background: this.state.itemBackground,
-                fontVariant: this.state.fontVariant
-            };
-            var CHILDS = _react2.default.Children.toArray(newProps.children);
-            var NAVBARACTUAL = CHILDS.map(function (x, i) {
-                return _react2.default.createElement(
-                    'li',
-                    { key: i, style: NAVBAR_NAVBAR_LI },
-                    x
-                );
+            var NAVBAR_NAVBAR_LI = _nestingstyles2.default.create({
+                navbar_navbar_li: {
+                    display: this.state.display,
+                    flex: 1,
+                    fontSize: this.state.fontSize,
+                    fontWeight: this.state.fontWeight,
+                    justifyContent: 'center',
+                    margin: this.state.itemSpaceing,
+                    background: this.state.itemBackground,
+                    fontVariant: this.state.fontVariant
+                },
+                hoverStyle: {
+                    color: this.state.hoverColor
+                },
+                '@media screen and (max-width: 440px)': {
+                    navbar_navbar_li: {
+                        display: this.state.smdis
+                    }
+                },
+                '@media screen and (min-width: 441px) and (max-width: 760px)': {
+                    navbar_navbar_li: {
+                        display: this.state.mddis
+                    }
+                }
             });
-            this.setState({ childs: NAVBARACTUAL });
+            var HAM_NAVBAR_LI = _nestingstyles2.default.create({
+                ham_navbar_li: {
+                    visibility: this.state.hamShow ? 'visible' : 'collaspe',
+                    flex: 1,
+                    fontSize: this.state.fontSize,
+                    fontWeight: this.state.fontWeight,
+                    justifyContent: 'center',
+                    margin: this.state.itemSpaceing,
+                    background: this.state.itemBackground,
+                    fontVariant: this.state.fontVariant
+                },
+                hoverStyle: {
+                    color: this.state.hoverColor
+                },
+                '@media screen and (max-width: 440px)': {
+                    ham_navbar_li: {
+                        visibility: this.state.hamShow ? 'visible' : 'collaspe'
+                    }
+                },
+                '@media screen and (min-width: 441px) and (max-width: 760px)': {
+                    ham_navbar_li: {
+                        visibility: this.state.hamShow ? 'visible' : 'collaspe'
+                    }
+                }
+            });
+            var CHILDS = _react2.default.Children.toArray(this.props.children);
+            if (+this.state.initialCount !== 0) {
+                var LGDIS = [];
+                var SMDIS = [];
+                for (var x = 0; x < +this.state.initialCount; x += 1) {
+                    LGDIS.push(CHILDS[x]);
+                }
+                for (var i = +this.state.initialCount; i < CHILDS.length; i += 1) {
+                    SMDIS.push(CHILDS[i]);
+                }
+                var NAVBARLG = LGDIS.map(function (x, i) {
+                    return _react2.default.createElement(
+                        'li',
+                        { key: i, style: NAVBAR_NAVBAR_LI.navbar_navbar_li },
+                        x
+                    );
+                });
+                var NAVBARSM = SMDIS.map(function (x, i) {
+                    return _react2.default.createElement(
+                        'li',
+                        { key: i, style: HAM_NAVBAR_LI.ham_navbar_li },
+                        x
+                    );
+                });
+
+                this.setState({ childs: NAVBARLG, hams: NAVBARSM });
+            } else {
+                var NAVBARACTUAL = CHILDS.map(function (x, i) {
+                    return _react2.default.createElement(
+                        'li',
+                        { key: i, style: NAVBAR_NAVBAR_LI.navbar_navbar_li },
+                        x
+                    );
+                });
+                this.setState({ childs: NAVBARACTUAL });
+            }
         }
     }, {
         key: 'render',
         value: function render() {
-            var NAVBAR = {
-                width: this.state.totalWidth,
-                height: this.state.totalHeight,
-                display: this.state.display,
-                flexDirection: 'column',
-                alignItems: this.state.alignItems,
-                margin: '0',
-                padding: this.state.padding,
-                background: this.state.mainBackground,
-                color: this.state.color
-            };
-            var NAVBAR_NAVBAR = {
-                width: this.state.navBarWidth,
-                height: 'inherit',
+            var _hamestnav;
+
+            var NAVBAR = _nestingstyles2.default.create({
+                navbar: {
+                    width: this.state.totalWidth,
+                    height: this.state.totalHeight,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: this.state.alignItems,
+                    margin: '0',
+                    padding: this.state.padding,
+                    background: this.state.mainBackground,
+                    color: this.state.color
+                },
+                '@media screen and (max-width: 440px)': {
+                    navbar: {
+                        display: 'flex'
+                    }
+                },
+                '@media screen and (min-width: 441px) and (max-width: 760px)': {
+                    navbar: {
+                        display: 'flex'
+                    }
+                }
+            });
+            var NAVBAR_NAVBAR = _nestingstyles2.default.create({
+                navbar_navbar: {
+                    width: this.state.navBarWidth,
+                    height: 'inherit',
+                    display: this.state.display,
+                    flexWrap: 'wrap',
+                    alignItems: this.state.columnAlign,
+                    fontFamily: this.state.fontFamily,
+                    flexDirection: this.state.direction
+                },
+                '@media screen and (max-width: 440px)': {
+                    navbar_navbar: {
+                        display: this.state.smdis
+                    }
+                },
+                '@media screen and (min-width: 441px) and (max-width: 760px)': {
+                    navbar_navbar: {
+                        display: this.state.mddis
+                    }
+                }
+            });
+            var HAMNAV = _nestingstyles2.default.create({
+                HAMNAV: {
+                    width: '50px',
+                    height: '50px',
+                    display: this.state.hamMenuDis,
+                    cursor: 'pointer',
+                    flexDirection: 'column'
+
+                },
+                '@media screen and (max-width: 440px)': {
+                    HAMNAV: {
+                        width: '50px',
+                        height: '50px',
+                        display: this.state.hamSmDis
+                    }
+                },
+                '@media screen and (min-width: 441px) and (max-width: 760px)': {
+                    HAMNAV: {
+                        width: '50px',
+                        height: '50px',
+                        display: this.state.hamMdDis
+                    }
+                }
+            });
+            var HAMLINES = {
                 display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: this.state.columnAlign,
-                fontFamily: this.state.fontFamily,
-                flexDirection: this.state.direction
+                width: '25px',
+                height: '5px',
+                backgroundColor: 'black',
+                margin: '3px 0'
             };
+            var HAMESTNAV = _nestingstyles2.default.create({
+                hamestnav: (_hamestnav = {
+                    visibility: 'hidden',
+                    width: '100%',
+                    flexDirection: 'column',
+                    position: this.state.hamPosition,
+                    top: this.state.hamTop,
+                    left: this.state.hamLeft,
+                    background: this.state.hamBackground,
+                    display: 'flex'
+                }, _defineProperty(_hamestnav, 'flexDirection', 'column'), _defineProperty(_hamestnav, 'alignItems', 'center'), _defineProperty(_hamestnav, 'boxShadow', this.state.hamShadow), _hamestnav),
+                '@media screen and (max-width: 440px)': {
+                    hamestnav: {
+                        visibility: this.state.hamShow ? 'visible' : 'hidden'
+                    }
+                },
+                '@media screen and (min-width: 441px) and (max-width: 760px)': {
+                    hamestnav: {
+                        visibility: this.state.hamShow ? 'visible' : 'hidden'
+                    }
+                }
+            });
             return _react2.default.createElement(
                 'nav',
-                { style: NAVBAR, id: this.state.navid, className: this.state.navClassName },
+                { style: NAVBAR.navbar, id: this.state.navid, className: this.state.navClassName },
                 _react2.default.createElement(
                     'ul',
-                    { style: NAVBAR_NAVBAR, id: this.state.itemsid, className: 'navbar1-navbar socialness ' + this.state.itemsClassName },
+                    { style: NAVBAR_NAVBAR.navbar_navbar, id: this.state.navid, className: this.state.navClassName + ' navbar1-navbar socialness' },
                     this.state.childs
+                ),
+                _react2.default.createElement(
+                    'div',
+                    { style: HAMNAV.HAMNAV, onClick: this.toggle },
+                    _react2.default.createElement('div', { style: HAMLINES }),
+                    _react2.default.createElement('div', { style: HAMLINES }),
+                    _react2.default.createElement('div', { style: HAMLINES })
+                ),
+                _react2.default.createElement(
+                    'ul',
+                    { style: HAMESTNAV.hamestnav },
+                    this.state.hams
                 )
             );
         }

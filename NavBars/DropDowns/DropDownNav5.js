@@ -14,6 +14,8 @@ require('../../css/reset.css');
 
 require('../../css/SuperStyleSheet.css');
 
+require('../../css/animations.css');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -31,9 +33,11 @@ var DropDownNav5 = function (_Component) {
         var _this = _possibleConstructorReturn(this, (DropDownNav5.__proto__ || Object.getPrototypeOf(DropDownNav5)).call(this, props));
 
         _this.state = {
-            display: 'none',
+            visibility: 'hidden',
             background: props.background,
-            offset: props.offset,
+            boxShadow: props.boxShadow || '1px 2px 2px black',
+            borderRadius: props.borderRadius || '0 5px 5px 0',
+            offset: props.offset || '-10',
             margin: '',
             padding: props.padding,
             width: props.width,
@@ -42,38 +46,97 @@ var DropDownNav5 = function (_Component) {
             itemsid: props.itemsid,
             mainClassName: props.mainClassName,
             titleClassName: props.titleClassName,
-            itemsClassName: props.itemsClassName
+            itemsClassName: props.itemsClassName,
+            animationIterationCount: props.aniCount,
+            animationTimingFunction: props.aniTime,
+            animationName: props.aniName,
+            animationDuration: props.aniDur,
+            transformOrigin: props.transformOrigin,
+            animationFillMode: props.aniFillMode || 'both',
+            smdis: props.smDis || 'flex',
+            mddis: props.mdDis || 'flex',
+            first: [],
+            childs: []
         };
+        _this.enter = _this.enter.bind(_this);
+        _this.left = _this.left.bind(_this);
         return _this;
     }
 
     _createClass(DropDownNav5, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var CHILDS = _react2.default.Children.toArray(this.props.children);
+            var NAVBAR = CHILDS.map(function (x, i, arr) {
+                return _react2.default.createElement(
+                    'li',
+                    { key: i },
+                    arr[i + 1]
+                );
+            });
+            this.setState({ first: CHILDS[0], childs: NAVBAR });
+        }
+    }, {
+        key: 'componentWillReceiveProps',
+        value: function componentWillReceiveProps(nextProps) {
+            var CHILDS = _react2.default.Children.toArray(nextProps.children);
+            var NAVBAR = CHILDS.map(function (x, i, arr) {
+                return _react2.default.createElement(
+                    'li',
+                    { key: i },
+                    arr[i + 1]
+                );
+            });
+            this.setState({ first: CHILDS[0], childs: NAVBAR });
+        }
+    }, {
+        key: 'enter',
+        value: function enter() {
+            this.setState({
+                visibility: 'visible',
+                animationIterationCount: '1',
+                animationTimingFunction: 'ease-in',
+                animationName: 'fadeIn',
+                animationDuration: '0.55s'
+            });
+        }
+    }, {
+        key: 'left',
+        value: function left() {
+            this.setState({
+                animationIterationCount: '1',
+                animationTimingFunction: 'ease-out',
+                animationName: 'fadeOut',
+                animationDuration: '0.55s'
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
             var _this2 = this;
 
             var DROPDOWN = {
                 position: 'absolute',
-                display: this.state.display,
+                zIndex: '1000',
+                borderRadius: this.state.borderRadius,
+                boxShadow: this.state.boxShadow,
+                visibility: this.state.visibility,
                 margin: '0 0 0 ' + this.state.offset,
                 width: this.state.width,
                 padding: '5px',
                 textAlign: 'center',
                 flex: 1,
-                background: this.state.background
+                background: this.state.background,
+                animationIterationCount: this.state.animationIterationCount,
+                animationTimingFunction: this.state.animationTimingFunction,
+                animationName: this.state.animationName,
+                animationDuration: this.state.animationDuration,
+                transformOrigin: this.state.transformOrigin,
+                animationFillMode: this.state.animationFillMode
             };
-            var DropDown_NavBar_Li = {};
             var HASCHILDS = {
                 fontSize: '1em'
             };
-            var CHILDS = _react2.default.Children.toArray(this.props.children);
-            var NAVBAR = CHILDS.map(function (x, i, arr) {
-                return _react2.default.createElement(
-                    'li',
-                    { key: i, style: DropDown_NavBar_Li },
-                    arr[i + 1]
-                );
-            });
             return _react2.default.createElement(
                 'nav',
                 { id: this.state.mainid, className: 'dropdownnav5 ' + this.state.mainClassName },
@@ -81,16 +144,16 @@ var DropDownNav5 = function (_Component) {
                     'li',
                     { style: HASCHILDS, id: this.state.titleid, className: 'DropDown_Side ' + this.state.titleClassName,
                         onMouseOver: function onMouseOver() {
-                            return _this2.setState({ display: 'inline' });
+                            return _this2.enter();
                         },
                         onMouseOut: function onMouseOut() {
-                            return _this2.setState({ display: 'none' });
+                            return _this2.left();
                         } },
-                    CHILDS[0],
+                    this.state.first,
                     _react2.default.createElement(
                         'ul',
                         { style: DROPDOWN, id: this.state.itemsid, className: this.state.itemsClassName },
-                        NAVBAR
+                        this.state.childs
                     )
                 )
             );
