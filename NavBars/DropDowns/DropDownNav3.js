@@ -16,10 +16,6 @@ require('../../css/SuperStyleSheet.css');
 
 require('../../css/animations.css');
 
-var _Holder = require('../../Holders/Holder2');
-
-var _Holder2 = _interopRequireDefault(_Holder);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -142,20 +138,16 @@ var DropDownNav3 = function (_Component) {
                     _react2.default.createElement(
                         'ul',
                         { style: DROPDOWN, id: this.state.itemsid, className: this.state.itemsClassName },
-                        _react2.default.createElement(
-                            _Holder2.default,
-                            null,
-                            this.state.childs[1],
-                            this.state.childs[2],
-                            this.state.childs[3],
-                            this.state.childs[4],
-                            this.state.childs[5],
-                            this.state.childs[6],
-                            this.state.childs[7],
-                            this.state.childs[8],
-                            this.state.childs[9],
-                            this.state.childs[10]
-                        )
+                        this.state.childs[1],
+                        this.state.childs[2],
+                        this.state.childs[3],
+                        this.state.childs[4],
+                        this.state.childs[5],
+                        this.state.childs[6],
+                        this.state.childs[7],
+                        this.state.childs[8],
+                        this.state.childs[9],
+                        this.state.childs[10]
                     )
                 )
             );

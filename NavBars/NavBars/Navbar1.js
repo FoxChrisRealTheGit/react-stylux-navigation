@@ -37,6 +37,11 @@ var Navbar1 = function (_Component) {
         var _this = _possibleConstructorReturn(this, (Navbar1.__proto__ || Object.getPrototypeOf(Navbar1)).call(this, props));
 
         _this.state = {
+            position: props.position,
+            top: props.top,
+            left: props.left,
+            right: props.right,
+            bottom: props.bottom,
             fontFamily: props.font || 'serif',
             totalWidth: props.totalWidth || '100%',
             navBarWidth: props.navbarWidth || '100%',
@@ -72,7 +77,13 @@ var Navbar1 = function (_Component) {
             hamMdDis: props.hamMdDis || 'none',
             hamShadow: props.hamShadow || '1px 2px 2px black',
             hamBackground: props.hamBackground || 'white',
-            hamPosition: props.hamPosition || 'absolute'
+            hamPosition: props.hamPosition || 'absolute',
+            animationIterationCount: props.aniCount || '1',
+            animationTimingFunction: props.aniTime || 'ease-in',
+            animationName: props.aniName || 'fadeIn',
+            animationDuration: props.aniDur || '0.75s',
+            transformOrigin: props.transformOrigin || 'top',
+            animationFillMode: props.aniFillMode || 'both'
         };
         _this.toggle = _this.toggle.bind(_this);
         return _this;
@@ -120,7 +131,13 @@ var Navbar1 = function (_Component) {
                     justifyContent: 'center',
                     margin: this.state.itemSpaceing,
                     background: this.state.itemBackground,
-                    fontVariant: this.state.fontVariant
+                    fontVariant: this.state.fontVariant,
+                    animationIterationCount: this.state.animationIterationCount,
+                    animationTimingFunction: this.state.animationTimingFunction,
+                    animationName: this.state.animationName,
+                    animationDuration: this.state.animationDuration,
+                    transformOrigin: this.state.transformOrigin,
+                    animationFillMode: this.state.animationFillMode
                 },
                 hoverStyle: {
                     color: this.state.hoverColor
@@ -216,7 +233,13 @@ var Navbar1 = function (_Component) {
                     justifyContent: 'center',
                     margin: this.state.itemSpaceing,
                     background: this.state.itemBackground,
-                    fontVariant: this.state.fontVariant
+                    fontVariant: this.state.fontVariant,
+                    animationIterationCount: this.state.animationIterationCount,
+                    animationTimingFunction: this.state.animationTimingFunction,
+                    animationName: this.state.animationName,
+                    animationDuration: this.state.animationDuration,
+                    transformOrigin: this.state.transformOrigin,
+                    animationFillMode: this.state.animationFillMode
                 },
                 hoverStyle: {
                     color: this.state.hoverColor
@@ -285,6 +308,7 @@ var Navbar1 = function (_Component) {
                     padding: this.state.padding,
                     background: this.state.mainBackground,
                     color: this.state.color
+
                 },
                 '@media screen and (max-width: 440px)': {
                     navbar: {
@@ -305,7 +329,13 @@ var Navbar1 = function (_Component) {
                     flexWrap: 'wrap',
                     alignItems: this.state.columnAlign,
                     fontFamily: this.state.fontFamily,
-                    flexDirection: this.state.direction
+                    flexDirection: this.state.direction,
+                    top: this.state.top,
+                    right: this.state.right,
+                    left: this.state.left,
+                    bottom: this.state.bottom,
+                    position: this.state.position,
+                    zIndex: 200
                 },
                 '@media screen and (max-width: 440px)': {
                     navbar_navbar: {
@@ -359,7 +389,7 @@ var Navbar1 = function (_Component) {
                     left: this.state.hamLeft,
                     background: this.state.hamBackground,
                     display: 'flex'
-                }, _defineProperty(_hamestnav, 'flexDirection', 'column'), _defineProperty(_hamestnav, 'alignItems', 'center'), _defineProperty(_hamestnav, 'boxShadow', this.state.hamShadow), _hamestnav),
+                }, _defineProperty(_hamestnav, 'flexDirection', 'column'), _defineProperty(_hamestnav, 'alignItems', 'center'), _defineProperty(_hamestnav, 'boxShadow', this.state.hamShadow), _defineProperty(_hamestnav, 'animationIterationCount', this.state.animationIterationCount), _defineProperty(_hamestnav, 'animationTimingFunction', this.state.animationTimingFunction), _defineProperty(_hamestnav, 'animationName', this.state.animationName), _defineProperty(_hamestnav, 'animationDuration', this.state.animationDuration), _defineProperty(_hamestnav, 'transformOrigin', this.state.transformOrigin), _defineProperty(_hamestnav, 'animationFillMode', this.state.animationFillMode), _hamestnav),
                 '@media screen and (max-width: 440px)': {
                     hamestnav: {
                         visibility: this.state.hamShow ? 'visible' : 'hidden'

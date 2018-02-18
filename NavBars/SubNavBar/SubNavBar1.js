@@ -60,7 +60,13 @@ var SubNavbar1 = function (_Component) {
             itemsClassName: props.itemsClassName,
             childs: '',
             smdis: props.smDis || 'none',
-            mddis: props.mdDis || 'flex'
+            mddis: props.mdDis || 'flex',
+            top: props.top || '-1px',
+            bottom: props.bottom,
+            left: props.left,
+            right: props.right,
+            position: props.position || "sticky",
+            zIndex: props.zIndex || '200'
         };
         return _this;
     }
@@ -153,9 +159,12 @@ var SubNavbar1 = function (_Component) {
                     padding: this.state.padding,
                     background: this.state.mainBackground,
                     color: this.state.color,
-                    top: '-1px',
-                    position: "sticky",
-                    zIndex: "200"
+                    top: this.state.top,
+                    bottom: this.state.bottom,
+                    left: this.state.left,
+                    right: this.state.right,
+                    position: this.state.position,
+                    zIndex: this.state.zIndex
                 },
                 '@media screen and (max-width: 440px)': {
                     subnavbar: {

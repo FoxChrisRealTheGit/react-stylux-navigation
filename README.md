@@ -47,12 +47,12 @@ npm install --save react-stylux-navigation
 
 ### Step by step:
 
-Stylux utilizes three main components and flex-box to handle layouts effectively. As an example, import Container1, Holder1, and Navbar1:
+Stylux utilizes three main components and flex-box to handle layouts effectively. As an example, import Container, Holder, and Navbar1:
 
 ```
 import {
-    Container1,
-    Holder1,
+    Container,
+    Holder,
     NavBar1,
 } from 'react-stylux';
 ```
@@ -60,44 +60,49 @@ import {
 Now you can use these components like any other component!
 
 ```
-<Container1>
-    <Holder1>
+<Container>
+    <Holder>
         <NavBar1>
-            <Link to="">Item1</Link>
-            <Link to="">Item2</Link>
-            <Link to="">Item3</Link>
+            <a href="">Item1</a>
+            <a href="">Item2</a>
+            <a href="">Item3</a>
         </NavBar1>
         <NavBar1>
-            <Link to="facebook.com"></Link>
-            <Link to="twitter.com"></Link>
-            <Link to="instagram.com"></Link>
+            <a href="facebook.com"></a>
+            <a href="twitter.com"></a>
+            <a href="instagram.com"></a>
         </NavBar1>
-    </Holder1>
-</Container1>
+    </Holder>
+</Container>
 ```
 Children are passed into the block level component to render based on type. In the example above, NavBar1 is used in conjunction with Holder1. This will create two spaces, and create two navbars center aligned. As a special note, every navbar block is hooked up with a className to psuedo render a logo based on href/to address info using the font awesome library.
 
 props can be passed into every item to further create a custom expierence:
 ```
-<Container1>
-    <Holder1
+<Container>
+    <Holder
         block1="2">
         <NavBar1>
-            <Link to="">Item1</Link>
-            <Link to="">Item2</Link>
-            <Link to="">Item3</Link>
+            <a href="">Item1</a>
+            <a href="">Item2</a>
+            <a href="">Item3</a>
         </NavBar1>
         <NavBar1
             align="flex-end"
             navbarWidth="60%">
-            <Link to="facebook.com"></Link>
-            <Link to="twitter.com"></Link>
-            <Link to="instagram.com"></Link>
+            <a href="facebook.com"></a>
+            <a href="twitter.com"></a>
+            <a href="instagram.com"></a>
         </NavBar1>
-    </Holder1>
-</Container1>
+    </Holder>
+</Container>
 ```
 This is just a basic example of what can be done with stylux. Basic documentation on the current blocks can be seen below, a more comprehensive website is currently being worked on.
+## Documentation:
+
+Each element will be shown with an example of the possible props equal to the default props, if no default is set then the prop will have no equals.
+Each elements will then be shown is an example of children accepted.
+
 ### Animation Notes:
 
 **The animation library is currently mostly from: animate.css, please see [Acknowledgments](#acknowledgments) for full acknowledgment.**
@@ -417,5 +422,8 @@ This is licensed under MIT license. If used in any project, please give ackknowl
 
 
 ## Changelog
+**0.2.2**
+* Added position on navbar and subnavbar but sticky needs better implementation for use. Fixed works though with props.left || .right || .bottom || .top
+
 **0.2.1**
 * updated to current stable version of react-stylux 0.2.9
